@@ -14,6 +14,7 @@ class SchoolAdmin(admin.ModelAdmin):
     list_display = ['name']
     list_display_links = ['name']
     fields = ['name']
+    search_fields = ['name']
 
 
 @admin.register(Teacher)
@@ -22,6 +23,7 @@ class TeacherAdmin(admin.ModelAdmin):
     list_display_links = ['name']
     fields = ['name', 'school']
     list_filter = ['school']
+    search_fields = ['name', 'school__name']
 
 
 @admin.register(Course)
@@ -30,6 +32,10 @@ class CourseAdmin(admin.ModelAdmin):
     list_display_links = ['name']
     fields = ['name', 'teacher', 'school']
     list_filter = ['teacher', 'school']
+    search_fields = ['teacher__name', 'school__name']
+
+    def teacher_of_class(self, obj):
+        return mark_safe('<a href="/admin/usercenter/teacher/%s/">%s</a>' % (obj.teacher.id, obj.teacher))
 
     def students_num(self, obj):
         student_list = []
@@ -42,7 +48,8 @@ class CourseAdmin(admin.ModelAdmin):
         else:
             return mark_safe('<span class="text-warning">还没有学生</span>')
 
-    students_num.short_description = '报名人数'
+    students_num.short_description = '学生'
+    teacher_of_class.short_description = '老师'
 
 
 @admin.register(Student)
@@ -51,6 +58,7 @@ class StudentAdmin(admin.ModelAdmin):
     list_display_links = ['name']
     fields = ['name', 'school', 'course']
     list_filter = ['school']
+    search_fields = ['name', 'school__name']
 
     def courses(self, obj):
         courses = []
