@@ -6,29 +6,36 @@ from django.contrib import admin
 # Register your models here.
 from django.utils.safestring import mark_safe
 
-from usercenter.models import Teacher, School, Course, Student
+from usercenter.models import Teacher, School, Course, Student, CourseStudentShip
 
 
 @admin.register(School)
 class SchoolAdmin(admin.ModelAdmin):
-    list_display = ['name']
+    list_display = ['name', 'created_at']
     list_display_links = ['name']
     fields = ['name']
     search_fields = ['name']
+    list_filter = ['created_at']
 
 
 @admin.register(Teacher)
 class TeacherAdmin(admin.ModelAdmin):
-    list_display = ['name', 'school']
+    list_display = ['name', 'school', 'created_at']
     list_display_links = ['name']
     fields = ['name', 'school']
-    list_filter = ['school']
+    list_filter = ['school', 'created_at']
     search_fields = ['name', 'school__name']
+
+
+class CourseStudentShipInline(admin.TabularInline):
+    model = CourseStudentShip
+    extra = 1
 
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ['name', 'teacher', 'school', 'students_num']
+    inlines = (CourseStudentShipInline,)
+    list_display = ['name', 'teacher', 'school']
     list_display_links = ['name']
     fields = ['name', 'teacher', 'school']
     list_filter = ['teacher', 'school']
@@ -54,17 +61,17 @@ class CourseAdmin(admin.ModelAdmin):
 
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    list_display = ['name', 'school', 'courses']
+    # inlines = (CourseStudentShipInline,)
+    list_display = ['name', 'school', 'level', 'created_at']
     list_display_links = ['name']
-    fields = ['name', 'school', 'course']
+    fields = ['name', 'school', 'level']
     list_filter = ['school']
-    search_fields = ['name', 'school__name']
+    search_fields = ['name', 'school__name', 'created_at']
 
-    def courses(self, obj):
-        courses = []
-        for item in obj.course.all():
-            courses.append(item.name)
-        return ", ".join(courses)
-
-    courses.short_description = "课程"
-    # course.short_description = "课程"
+    # def courses(self, obj):
+    #     courses = []
+    #     for item in obj.course.all():
+    #         courses.append(item.name)
+    #     return ", ".join(courses)
+    #
+    # courses.short_description = "课程"

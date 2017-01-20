@@ -26,11 +26,10 @@ def add_school(start, end):
 
 def add_teacher(start, end):
     for school in School.objects.all():
-        name = school.name[6:]
         for n in range(start, end):
             teacher = Teacher()
             teacher.school = school
-            teacher.name = 'teacher%s-%s' % (n, name)
+            teacher.name = 'teacher%s' % n
             teacher.save()
 
 
@@ -40,19 +39,22 @@ def add_course(start, end):
             course = Course()
             course.teacher = teacher
             course.school = teacher.school
-            course.name = 'course of %s(%s)' % (teacher.name[7:], n)
+            course.name = 'course%s' % n
             course.save()
 
 
 def add_student(start, end):
-    for course in Course.objects.all():
+    for school in School.objects.all():
         for n in range(start, end):
             student = Student()
-            student.name = '%s-stu-%s' % (course.name, n)
-            student.school = course.school
-            # student.course.add(course.id)
+            student.name = 'student%s' % n
+            student.level = 0
+            student.school = school
             student.save()
 
 
 if __name__ == '__main__':
-    add_student(1, 3)
+    add_school(1, 3)
+    add_teacher(1, 3)
+    add_student(1, 9)
+    add_course(1, 3)
