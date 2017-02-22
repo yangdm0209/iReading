@@ -21,6 +21,7 @@ class School(Timestampable):
 class Teacher(Timestampable):
     name = models.CharField(max_length=128, verbose_name="名字")
     school = models.ForeignKey(School, verbose_name="学校")
+    password = models.CharField(max_length=255, default='', verbose_name="登陆密码")
 
     def __unicode__(self):
         return '%s - %s' % (self.name, self.school)
@@ -37,6 +38,7 @@ class Student(Timestampable):
     name = models.CharField(max_length=128, verbose_name="名字")
     school = models.ForeignKey(School, verbose_name="学校")
     level = models.IntegerField(choices=L_TP, blank=True, default=0, verbose_name="级别")
+    password = models.CharField(max_length=255, default='', verbose_name="登陆密码")
 
     def __unicode__(self):
         return '%s - %s' % (self.name, self.school)

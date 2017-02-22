@@ -1,0 +1,23 @@
+{% extends 'bootstrap.html' %}
+
+{% load bootstrap3 %}
+
+{% block head %}
+<meta name="description" content="1元夺宝，就是指只需1元就有机会获得一件商品，好玩有趣，不容错过。"/>
+<meta name="keywords" content="1元,一元,1元夺宝,1元购,1元购物,1元云购,一元夺宝,一元购,一元购物,一元云购,夺宝奇兵"/>
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, width=device-width, maximum-scale=1.0, user-scalable=no">
+<meta content="telephone=no" name="format-detection"/>
+<meta name="wap-font-scale" content="no">
+{% endblock %}
+
+{% block bootstrap3_content %}
+<!-- 此处可以添加导航 -->
+<div class="container">
+    <h1>{% block title %}(no title){% endblock %}</h1>
+
+    {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+    {% block content %}(no content){% endblock %}
+</div>
+
+{% endblock %}

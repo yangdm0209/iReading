@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# coding: utf-8
+
 """
 Django settings for ireading project.
 
@@ -36,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap3',
     'usercenter',
 )
 
@@ -55,7 +59,7 @@ ROOT_URLCONF = 'ireading.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,7 +71,7 @@ TEMPLATES = [
         },
     },
 ]
-
+TEMPLATE_DIRS = (os.path.join(BASE_DIR, 'templates'),)
 WSGI_APPLICATION = 'ireading.wsgi.application'
 
 # Database
@@ -97,3 +101,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Settings for django-bootstrap3
+BOOTSTRAP3 = {
+    # The URL to the jQuery JavaScript file
+    'jquery_url': '//cdn.bootcss.com/jquery/3.1.1/jquery.min.js',
+
+    # The Bootstrap base URL
+    'base_url': '//cdn.bootcss.com/bootstrap/3.3.7/',
+    'set_required': False,  # For Django <= 1.8 only
+    'error_css_class': 'bootstrap3-error',
+    'required_css_class': 'bootstrap3-required',
+    'javascript_in_head': True,
+}

@@ -29,7 +29,7 @@ class TeacherAdmin(admin.ModelAdmin):
 
 class CourseStudentShipInline(admin.TabularInline):
     model = CourseStudentShip
-    extra = 1
+    extra = 1 # how many rows to show
 
 
 @admin.register(Course)

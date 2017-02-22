@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load bootstrap3 %}
+{% block title %}
+Keep reading
+{% endblock %}
+
+{% block content %}
+{% if password_is_wrong %}
+<div class="alert alert-danger alert-dismissable alert-link">
+    <button class="close" type="button" data-dismiss="alert" aria-hidden="true">×</button>
+    错误<br/>
+    用户名或密码错误
+</div>
+{% endif %}
+<form role="form" method="post">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    {% buttons submit='OK' reset="Cancel" %}{% endbuttons %}
+    <a href="/contactme/"><input type="button" value="忘记密码" class="btn btn-danger"></a>
+</form>
+
+{% endblock %}
+

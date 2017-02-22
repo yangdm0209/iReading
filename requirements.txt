@@ -1,3 +1,4 @@
 Django==1.8
 django-admin-bootstrapped=2.5.7
 qiniu
+django-bootstrap3=8.1.0
